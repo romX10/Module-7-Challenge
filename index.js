@@ -34,7 +34,6 @@ ${description}
 ## Installation
 
 To install necessary dependicies, run the following command:
-
 -------
 ${installCommand}
 -------
