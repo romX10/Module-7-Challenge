@@ -7,25 +7,63 @@ const questions = ["What is your github username?", "What is your email address?
  "What does the user need to know about using the repo?", "What does the user need to know about contributing to the repo?"];
 
 // TODO: Create a function to write README file
-const generateREADME = ({userName, email, projectName, description, license, installCommand, testCommand, userInfo, contributeInfo}) =>
-`#Title
+const generateREADME = ({userName, email, projectName, description, license, installCommand, testCommand, userInfo, contributeInfo}, licenseChoice) =>
+`
+#${projectName}
 
-${projectName} by ${userName}. Email is ${email}.
+${licenseChoice}
 
-##Description
+# Description
 
 ${description}
 
-##License
+# Table of Contents
 
-${license}
+*   [Installation](#Installation)
+
+*   [Usage](#Usage)
+
+*   [License](#License)
+
+*   [Contribution](#Contribution)
+
+*   [Tests](#Tests)
+
+*   [Questions](#Questions)
+
+## Installation
+
+To install necessary dependicies, run the following command:
+
+-------
 ${installCommand}
-${testCommand}
+-------
+
+## Usage
+
 ${userInfo}
+
+## License
+
+This project is licensed under the ${license} license.
+
+## Contributing
+
 ${contributeInfo}
+
+## Tests
+
+To run tests, run the following command:
+------
+${testCommand}
+------
+
+## Questions
+
+If you have any questions regarding this repo, open an issue or contact me directly at ${email}. You can find more of my work at [${userName}](https://github.com/${userName}).
 `;
 
-function init() { inquirer.prompt([
+function init() {inquirer.prompt([
     {
         type: 'input',
         name: 'userName',
@@ -75,7 +113,24 @@ function init() { inquirer.prompt([
 ])
 // TODO: Create a function to initialize app
 .then((answers) => {
-        const readmeContent = generateREADME(answers);
+        var licenseChoice = "";
+        if (answers.license === 'MIT') {
+            licenseChoice = "![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)(https://opensource.org/licenses/MIT)";
+        } 
+        else if (answers.license === 'APACHE 2.0') {
+            licenseChoice = "![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)(https://opensource.org/licenses/Apache-2.0)";
+        }
+        else if (answers.license === 'GPL 3.0'){
+            licenseChoice = "![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)(https://www.gnu.org/licenses/gpl-3.0)";
+        }
+        else if (answers.license === 'BSD 3'){
+            licenseChoice = "![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)(https://opensource.org/licenses/BSD-3-Clause)";
+        }
+        else if (answers.license === 'None'){
+            licenseChoice = "No license for this project";
+        }
+
+        const readmeContent = generateREADME(answers, licenseChoice);
 
         fs.writeFile("README.md", readmeContent, (error) => 
             error ? console.error(error) : console.log("README successfully generated!")
