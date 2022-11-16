@@ -50,3 +50,7 @@ npm test
 ## Questions
 
 If you have any questions regarding this repo, open an issue or contact me directly at fromanX@gmail.com. You can find more of my work at [romX10](https://github.com/romX10).
+
+## Video Walkthrough
+
+https://app.castify.com/view/7fe3d4a7-70a5-4b36-ab78-60aab4a5f330
